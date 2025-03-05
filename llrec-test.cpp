@@ -67,9 +67,13 @@ void dealloc(Node* head)
 //   function object struct declarations
 // -----------------------------------------------
 
-
-
-
+// functor to check for odd number input 
+// used for testing llfilter
+struct Odd{
+    bool operator()(int value) {
+        return value % 2 != 0; 
+    }
+};
 
 int main(int argc, char* argv[])
 {
@@ -87,9 +91,27 @@ int main(int argc, char* argv[])
 
     // Test out your linked list code
 
+    // llpivot test
+    Node* smaller = nullptr; 
+    Node* larger = nullptr; 
+    int pivot = 9; // should print smaller = 6,8,8,9 and larger = 12,19
+   
+    llpivot(head, smaller, larger, pivot);
 
+    cout << "Smaller than or equal to " << pivot << ": "; 
+    print(smaller);
+    cout << "Larger than " << pivot << ": ";
+    print(larger); 
 
+    // llfilter test
+    Odd pred; 
+    // should print 6,8,8
+    Node* list = llfilter(smaller, pred);
+    cout << "Even numbers in smaller: ";
+    print(list); 
+
+    dealloc(list); 
+    dealloc(larger);
     
     return 0;
-
 }
